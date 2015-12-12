@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -25,6 +25,19 @@ namespace PhysicalManagementSystemApp.UI
 
                 ApprovedGridView.DataSource = manager.ApproveDetail();
                 ApprovedGridView.DataBind();
+                for (int i = 0; i < ApprovedGridView.Rows.Count; i++)
+                {
+                    Label l1 = (Label)ApprovedGridView.Rows[i].FindControl("Label3");
+                    string s = l1.Text;
+                    if (s.Length > 10)
+                        s = s.Substring(0, 10);
+                    l1.Text = s;
+                    Label l2 = (Label)ApprovedGridView.Rows[i].FindControl("Label4");
+                    s = l2.Text;
+                    if (s.Length > 10)
+                        s = s.Substring(0, 10);
+                    l2.Text = s;
+                }
                 int sl = 1;
 
                 for (int i = 0; i < ApprovedGridView.Rows.Count; i++)

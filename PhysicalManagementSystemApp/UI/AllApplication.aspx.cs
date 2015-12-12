@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -14,16 +14,10 @@ namespace PhysicalManagementSystemApp.UI
         AllApplicationManager manager = new AllApplicationManager();
         protected void Page_Load(object sender, EventArgs e)
         {
-
-
             if (!IsPostBack)
             {
-
                 PopulateGridView();
             }
-
-
-
         }
 
         BookingHistoryByCat category = new BookingHistoryByCat();
@@ -31,14 +25,26 @@ namespace PhysicalManagementSystemApp.UI
         public void PopulateGridView()
         {
             List<Model.Application> gridList = manager.ViewAllAppliction();
-            bool isFull = gridList.Any();
+            int isFull = gridList.Count;
 
-            if (isFull)
+            if (isFull>0)
             {
 
                 AllAppGridView.DataSource = manager.ViewAllAppliction();
                 AllAppGridView.DataBind();
-
+                for (int i = 0; i < AllAppGridView.Rows.Count; i++)
+                {
+                    Label l1 = (Label)AllAppGridView.Rows[i].FindControl("Label4");
+                    string s = l1.Text;
+                    if (s.Length > 10)
+                        s = s.Substring(0, 10);
+                    l1.Text = s;
+                    Label l2 = (Label)AllAppGridView.Rows[i].FindControl("Label5");
+                    s = l2.Text;
+                    if (s.Length > 10)
+                        s = s.Substring(0, 10);
+                    l2.Text = s;
+                }
 
                 int sl = 1;
 
@@ -56,9 +62,7 @@ namespace PhysicalManagementSystemApp.UI
             {
                 nulMsgLabel.Text = "There is no applications";
             }
-        }
-
-       
+        }      
 
         protected void Calendar1_SelectionChanged(object sender, EventArgs e)
         {
@@ -89,6 +93,11 @@ namespace PhysicalManagementSystemApp.UI
         protected void LinkButton1_Click(object sender, EventArgs e)
         {
             detailLabel.Visible = true;
+        }
+
+        protected void AllAppGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            
         }
 
        

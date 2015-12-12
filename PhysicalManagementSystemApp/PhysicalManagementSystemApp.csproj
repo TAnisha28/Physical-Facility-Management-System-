@@ -13,12 +13,13 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PhysicalManagementSystemApp</RootNamespace>
     <AssemblyName>PhysicalManagementSystemApp</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,24 +40,27 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Add_facility.aspx" />
+    <Content Include="Application_New1.aspx" />
+    <Content Include="Booking.aspx" />
+    <Content Include="Booking_Update.aspx" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -90,7 +94,30 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
-    <Content Include="packages.config" />
+    <Content Include="css\style.css" />
+    <Content Include="default.aspx" />
+    <Content Include="Facility.aspx" />
+    <Content Include="home.aspx" />
+    <Content Include="images\addfaci.png" />
+    <Content Include="images\background.jpg" />
+    <Content Include="images\create.png" />
+    <Content Include="images\facility.png" />
+    <Content Include="images\home_1.jpg" />
+    <Content Include="images\home_2.jpg" />
+    <Content Include="images\menu-button-md.png" />
+    <Content Include="images\search.jpg" />
+    <Content Include="images\transparent.png" />
+    <Content Include="images\update.jpg" />
+    <Content Include="js\image_slide.js" />
+    <Content Include="js\jquery.min.js" />
+    <Content Include="Login.aspx" />
+    <Content Include="Main1.Master" />
+    <Content Include="New_application.aspx" />
+    <Content Include="Organization1.aspx" />
+    <Content Include="UI\BookedHistory.aspx" />
+    <Content Include="UI\UserAccount.aspx" />
+    <Content Include="Main3.Master" />
+    <Content Include="Main2.Master" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
@@ -111,11 +138,12 @@
     <Content Include="UI\PhysicalFacilityLogin.Master" />
     <Content Include="UI\PhysicalFacilityManagement.Master" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
+    <Content Include="web.config" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
     </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -130,25 +158,116 @@
     <Content Include="UI\Login.aspx" />
     <Content Include="UI\Reject.aspx" />
     <Content Include="UI\ViewDetailsByTime.aspx" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Add_facility.aspx.cs">
+      <DependentUpon>Add_facility.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Add_facility.aspx.designer.cs">
+      <DependentUpon>Add_facility.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application_New1.aspx.cs">
+      <DependentUpon>Application_New1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Application_New1.aspx.designer.cs">
+      <DependentUpon>Application_New1.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BLL\AllApplicationManager.cs" />
     <Compile Include="BLL\ApplicationManager.cs" />
     <Compile Include="BLL\BookingManager.cs" />
     <Compile Include="BLL\LoginManager.cs" />
     <Compile Include="BLL\ApprovedManager.cs" />
+    <Compile Include="BLL\OrganizationManager.cs" />
     <Compile Include="BLL\RejectManager.cs" />
+    <Compile Include="Booking.aspx.cs">
+      <DependentUpon>Booking.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Booking.aspx.designer.cs">
+      <DependentUpon>Booking.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Booking_Update.aspx.cs">
+      <DependentUpon>Booking_Update.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Booking_Update.aspx.designer.cs">
+      <DependentUpon>Booking_Update.aspx</DependentUpon>
+    </Compile>
     <Compile Include="DAL\ApplicationGateway.cs" />
     <Compile Include="DAL\ApprovedGateway.cs" />
     <Compile Include="DAL\BookingGateway.cs" />
     <Compile Include="DAL\LoginGateway.cs" />
+    <Compile Include="DAL\OrganizationGateway.cs" />
     <Compile Include="DAL\RejectGateway.cs" />
+    <Compile Include="default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Facility.aspx.cs">
+      <DependentUpon>Facility.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Facility.aspx.designer.cs">
+      <DependentUpon>Facility.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="home.aspx.cs">
+      <DependentUpon>home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="home.aspx.designer.cs">
+      <DependentUpon>home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Main1.Master.cs">
+      <DependentUpon>Main1.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main1.Master.designer.cs">
+      <DependentUpon>Main1.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Main2.Master.cs">
+      <DependentUpon>Main2.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main2.Master.designer.cs">
+      <DependentUpon>Main2.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Main3.Master.cs">
+      <DependentUpon>Main3.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main3.Master.designer.cs">
+      <DependentUpon>Main3.Master</DependentUpon>
+    </Compile>
     <Compile Include="Model\Application.cs" />
     <Compile Include="Model\Booking.cs" />
     <Compile Include="Model\BookingHistoryByCat.cs" />
+    <Compile Include="Model\Organization.cs" />
+    <Compile Include="New_application.aspx.cs">
+      <DependentUpon>New_application.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="New_application.aspx.designer.cs">
+      <DependentUpon>New_application.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Organization1.aspx.cs">
+      <DependentUpon>Organization1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Organization1.aspx.designer.cs">
+      <DependentUpon>Organization1.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\AllApplication.aspx.cs">
       <DependentUpon>AllApplication.aspx</DependentUpon>
@@ -170,6 +289,13 @@
     </Compile>
     <Compile Include="UI\Approved.aspx.designer.cs">
       <DependentUpon>Approved.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\BookedHistory.aspx.cs">
+      <DependentUpon>BookedHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\BookedHistory.aspx.designer.cs">
+      <DependentUpon>BookedHistory.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI\BookHistoryByCat.aspx.cs">
       <DependentUpon>BookHistoryByCat.aspx</DependentUpon>
@@ -227,6 +353,13 @@
     <Compile Include="UI\Reject.aspx.designer.cs">
       <DependentUpon>Reject.aspx</DependentUpon>
     </Compile>
+    <Compile Include="UI\UserAccount.aspx.cs">
+      <DependentUpon>UserAccount.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\UserAccount.aspx.designer.cs">
+      <DependentUpon>UserAccount.aspx</DependentUpon>
+    </Compile>
     <Compile Include="UI\ViewDetailsByTime.aspx.cs">
       <DependentUpon>ViewDetailsByTime.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -251,7 +384,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>26878</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:26878/</IISUrl>
+          <IISUrl>http://localhost:26878</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -2,11 +2,12 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-      <p>
+      
         <a href="Application.aspx">Approved Applications</a>:
           <asp:Label ID="countLabel" runat="server" Text=""></asp:Label>
-       </p>
-    <asp:GridView ID="ApprovedGridView" runat="server" AutoGenerateColumns="False" OnSelectedIndexChanging="ApprovedGridView_SelectedIndexChanging" Width="847px" Height="167px">
+       
+    <asp:GridView ID="ApprovedGridView" runat="server" AutoGenerateColumns="False" OnSelectedIndexChanging="ApprovedGridView_SelectedIndexChanging" Width="889px" Height="161px" BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" CellPadding="2" ForeColor="Black" GridLines="None">
+        <AlternatingRowStyle BackColor="PaleGoldenrod" />
         <Columns>
             <asp:TemplateField HeaderText="SL NO">
                 <ItemTemplate>
@@ -31,22 +32,42 @@
             </asp:TemplateField>
             <asp:BoundField DataField="CatName" HeaderText="Category Name" />
             <asp:BoundField DataField="timeslot" HeaderText="Time slot" />
-            <asp:BoundField DataField="startdate" HeaderText="start time" />
-            <asp:BoundField DataField="enddate" HeaderText="End date" />
+            <asp:TemplateField HeaderText="Start Date">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("startdate") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label3" runat="server" Text='<%# Bind("startdate") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="End date">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("enddate") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label4" runat="server" Text='<%# Bind("enddate") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
             <asp:BoundField DataField="status" HeaderText="Status" />
         </Columns>
+        <FooterStyle BackColor="Tan" />
+        <HeaderStyle BackColor="Tan" Font-Bold="True" />
+        <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" HorizontalAlign="Center" />
+        <SelectedRowStyle BackColor="DarkSlateBlue" ForeColor="GhostWhite" />
+        <SortedAscendingCellStyle BackColor="#FAFAE7" />
+        <SortedAscendingHeaderStyle BackColor="#DAC09E" />
+        <SortedDescendingCellStyle BackColor="#E1DB9C" />
+        <SortedDescendingHeaderStyle BackColor="#C2A47B" />
     </asp:GridView>
     <br />
     <br />
-    <br />
-    <br />
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  
     <asp:Label ID="headerLabel" runat="server" Text=""></asp:Label><br/>
       <br />
-&nbsp;<asp:Label ID="approveLabel" runat="server"></asp:Label>
-    <asp:Label ID="nulMsgLabel" runat="server" Text=""></asp:Label>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:TextBox ID="detailTextBox" runat="server" Height="67px" TextMode="MultiLine" Visible="False" Width="304px"></asp:TextBox>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+<asp:Label ID="approveLabel" runat="server"></asp:Label><br/>
+    <asp:Label ID="nulMsgLabel" runat="server" Text=""></asp:Label><br/>
+    <asp:TextBox ID="detailTextBox" runat="server" Height="49px" TextMode="MultiLine" Visible="False" Width="890px"></asp:TextBox>
+<br />
+     
 
 </asp:Content>

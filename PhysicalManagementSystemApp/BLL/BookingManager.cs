@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+
 using System.Web;
 using PhysicalManagementSystemApp.DAL;
 using PhysicalManagementSystemApp.Model;
@@ -15,7 +15,12 @@ namespace PhysicalManagementSystemApp.BLL
         {
             return gateway.PopulateDropDownlist();
         }
-
+        //start change
+        public List<Booking> PopulateGridview()
+        {
+            return gateway.PopulateGridview();
+        }
+        //end change
         public List<BookingHistoryByCat> PopulateNameDropDownlist(string categ)
         {
             return gateway.PopulateNameDropDownlist(categ);

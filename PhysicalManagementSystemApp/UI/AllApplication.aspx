@@ -2,18 +2,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-      <p>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
-    
-&nbsp;
-    &nbsp;&nbsp;</p>
-    
-    <p>
-        &nbsp;</p>
-    <p>
-        <a href="Application.aspx">All Applications</a>
-        </p>
-    &nbsp;<asp:GridView ID="AllAppGridView" runat="server" Height="164px" Width="852px"  OnSelectedIndexChanging="AllAppGridView_SelectedIndexChanging" AutoGenerateColumns="False">
+   <a href="Application.aspx">All Applications</a>
+  
+    <asp:GridView ID="AllAppGridView" runat="server" Height="164px" Width="894px"  OnSelectedIndexChanging="AllAppGridView_SelectedIndexChanging" AutoGenerateColumns="False" BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" CellPadding="2" ForeColor="Black" GridLines="None" OnPageIndexChanging="AllAppGridView_PageIndexChanging">
+        <AlternatingRowStyle BackColor="PaleGoldenrod" />
         <Columns>
             <asp:TemplateField HeaderText="SI No.">
                 <EditItemTemplate>
@@ -48,10 +40,32 @@
             </asp:TemplateField>
             <asp:BoundField DataField="CatName" HeaderText="Category Name" />
             <asp:BoundField DataField="Timeslot" HeaderText="Timeslot" />
-            <asp:BoundField DataField="StartDate" HeaderText="Start Date" />
-            <asp:BoundField DataField="EndDate" HeaderText="End Date" />
+            <asp:TemplateField HeaderText="Start Date">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("StartDate") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label4" runat="server" Text='<%# Bind("StartDate") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="End Date">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("EndDate") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label5" runat="server" Text='<%# Bind("EndDate") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
             <asp:BoundField DataField="Status" HeaderText="Status" />
         </Columns>
+        <FooterStyle BackColor="Tan" />
+        <HeaderStyle BackColor="Tan" Font-Bold="True" />
+        <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" HorizontalAlign="Center" />
+        <SelectedRowStyle BackColor="DarkSlateBlue" ForeColor="GhostWhite" />
+        <SortedAscendingCellStyle BackColor="#FAFAE7" />
+        <SortedAscendingHeaderStyle BackColor="#DAC09E" />
+        <SortedDescendingCellStyle BackColor="#E1DB9C" />
+        <SortedDescendingHeaderStyle BackColor="#C2A47B" />
     </asp:GridView>
     
     

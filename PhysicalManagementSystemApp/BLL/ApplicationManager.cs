@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+
 using System.Web;
 using PhysicalManagementSystemApp.DAL;
 using PhysicalManagementSystemApp.Model;
@@ -10,10 +10,10 @@ namespace PhysicalManagementSystemApp.BLL
     public class ApplicationManager
     {
         ApplicationGateway aGateway = new ApplicationGateway();
-        public List<Application> GetAllAppliction()
+        public List<Application> GetAllAppliction(string appid)
         {
 
-            return aGateway.GetAllApplication();
+            return aGateway.GetAllApplication(appid);
 
         }
         public int UpdateStatus(Model.Application newApplication)

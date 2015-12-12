@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using PhysicalManagementSystemApp.BLL;
 using PhysicalManagementSystemApp.Model;
+using System.Data.SqlClient;
+using System.Data;
+using System.Web.Configuration;
+
 
 namespace PhysicalManagementSystemApp.UI
 {
@@ -19,29 +23,30 @@ namespace PhysicalManagementSystemApp.UI
         {
             if (!IsPostBack)
             {
-                if (manager.GetAllPendingApplication() !=null)
-                {
-                    preBookingGridView.DataSource = manager.GetAllPendingApplication();
-                    preBookingGridView.DataBind();
-                }
-                else
-                {
-                    nullMsgLabel.Text = "There is no pending application";
-                }
+                PopulatePreBookingGridview();
             }
         }
     
 
         protected void showButton_Click(object sender, EventArgs e)
         {
-            newApplication.AppId = IdLabel.Text;
-            Session["AppId"] = newApplication.AppId;
-           PopulateApplicationGridView();
+           
 
 
 
-
-
+        }
+        protected void ShowEmail()
+        {
+            SqlConnection con = new SqlConnection(WebConfigurationManager.ConnectionStrings["PhysicalFacilityConDB"].ConnectionString);
+      
+            SqlCommand  cmd = new SqlCommand("select distinct name,details from Details where type='Dept'", con);
+            con.Open();
+            SqlDataReader  dr = cmd.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(dr);
+            con.Close();
+            GridView6.DataSource = dt;
+            GridView6.DataBind();
         }
 
         protected void preBookingGridView_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
@@ -75,9 +80,22 @@ namespace PhysicalManagementSystemApp.UI
                 {
                     Label l = (Label)preBookingGridView.Rows[i].FindControl("idLabel");
                     newApplication.AppId= l.Text;
-                    IdLabel.Text = l.Text;
+                    Session["AppId"] = l.Text;
                     break;
                 }
+            }
+            newApplication.AppId = IdLabel.Text;
+            if (Session["AppId"] != null)
+
+                PopulateApplicationGridView();
+
+            else
+                IdLabel.Text = "Please select Application ID";
+            appDetailsGridView.Columns[6].Visible = false;
+            if (appDetailsGridView.Rows.Count > 0)
+            {
+                confirmButton.Visible = true;
+                ShowEmail();
             }
         }
 
@@ -88,7 +106,7 @@ namespace PhysicalManagementSystemApp.UI
                 CheckBox check = (CheckBox) oldrow.FindControl("addCheckBox");
                 if (check != null && check.Checked)
                 {
-                      string bookingStatus = "Booked";
+                      
                       newBooking.FaciID= oldrow.Cells[0].Text;
                       newBooking.TimeSlot = oldrow.Cells[3].Text;
                       newBooking.AppID = Session["AppId"].ToString();
@@ -98,33 +116,13 @@ namespace PhysicalManagementSystemApp.UI
                       newBooking.UserName = Session["UserName"].ToString();
                       newBooking.BookDate = DateTime.Now;
                       newBooking.BookStatus = "Booked";
-                      int insert= manager.StoreBookingInformation(newBooking);
-                      if (insert> 0)
-                     {
-                         
-                         int update = manager.UpdateBookingStatus(bookingStatus);
-                         if (update>0)
-                         {
-                             resultLabel.Text = "Added Succesfully";
-                         }
-                         else
-                         {
-                             resultLabel.Text = "Adding Failed"; 
-                         }
-                         
-                        
-
-                     }
-                     else
-                     {
-                         resultLabel.Text = "Adding Failed";
-                     }
-                     
-                    //facLabel.Text = newApplication.FaciId;
-                    //timLabel.Text = newApplication.TimeSlot;
+                      int insert= manager.StoreBookingInformation(newBooking);                   
+                    
                 }
             }
             PopulateApplicationGridView();
+            PopulatePreBookingGridview();
+
 
 
         }
@@ -138,9 +136,46 @@ namespace PhysicalManagementSystemApp.UI
 
         public void PopulateApplicationGridView()
         {
-            appDetailsGridView.DataSource = manager.GetApplicationDetails(newApplication.AppId);
+            string appid1 = Session["AppID"].ToString();
+            appDetailsGridView.DataSource = manager.GetApplicationDetails(appid1);
             appDetailsGridView.DataBind();
+            for (int i = 0; i < appDetailsGridView.Rows.Count; i++)
+            {
+                GridViewRow row = appDetailsGridView.Rows[i];
+                Label label1 = (Label)appDetailsGridView.Rows[i].FindControl("Label1");
+
+                label1.Text = label1.Text.Substring(0, 10);
+
+                Label l1 = (Label)appDetailsGridView.Rows[i].FindControl("Label2");
+                string s = l1.Text;
+                if (s.Length > 10)
+                    s = s.Substring(0, 10);
+                l1.Text = s;
+                
+
+            }
             
+        }
+
+        public void PopulatePreBookingGridview()
+        {
+            if (manager.GetAllPendingApplication() != null)
+            {
+                preBookingGridView.DataSource = manager.GetAllPendingApplication();
+                preBookingGridView.DataBind();
+                for (int i = 0; i < preBookingGridView.Rows.Count; i++)
+                {
+                    GridViewRow row = preBookingGridView.Rows[i];
+                    Label label1 = (Label)preBookingGridView.Rows[i].FindControl("Label1");
+
+                    label1.Text = label1.Text.Substring(0, 10);
+
+                  }
+            }
+            else
+            {
+                nullMsgLabel.Text = "There is no pending application";
+            }
         }
     }
 }

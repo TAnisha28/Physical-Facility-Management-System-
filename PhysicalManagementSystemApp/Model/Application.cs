@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+
 using System.Web;
 
 namespace PhysicalManagementSystemApp.Model
@@ -24,5 +24,8 @@ namespace PhysicalManagementSystemApp.Model
         public DateTime prrocessingTime { get; set; }
         public string Remark { get; set; }
         public string UserName { get; set; }
+
+        public float price { get; set; }
+        public string ratetype { get; set; }
     }
 }

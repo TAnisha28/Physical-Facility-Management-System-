@@ -51,12 +51,12 @@
 					<li class="parent">
 						<a  href="#">Booking </a>
 						<ul class="sub-menu">
-						    <li><a href="Booking.aspx">New Booking</a></li>
+						     <li><a href="BookedHistory.aspx"> Booked History</a></li>
 							<li><a href="BookHistoryByCat.aspx">History By Category</a></li>
 						    <li><a href="ViewDetailsByTime.aspx"> History BY Time</a></li>
 						</ul>
 					</li>
-					<li><a href="Logout.aspx">Logout</a></li>
+					<li><a href="../Login.aspx">Logout</a></li>
 				</ul>
 			</nav>
         </div><!--close menubar-->	  

@@ -2,22 +2,24 @@ html
 { height: 100%;}
 
 *
-{ margin: 0;
-  padding: 0;}
+{ margin: 0 0px 0 0;
+  padding: 0;
+}
 
-body
-{ font: normal 80% Arial, Helvetica, sans-serif;
-  color: #FFF;
-  background: transparent url(../images/background.jpg)
+body {
+    font: normal 80% Arial, Helvetica, sans-serif;
+    color: #FFF;
+    background: transparent url(../images/background.jpg);
+}
 
-p
-{ padd
+
+
 
 p
 { padding: 0 0 10px 0;
   line-height: 1.7em;
   font-size: 100%;
-    height: 190px;
+    height: 36px;
 }
 
 img
@@ -382,12 +384,13 @@ ul#menu li:hover a
 
 .slideshow {
   width: 900px;
-  height: 350px;
+  height: 280px;
   float: left;
   margin-bottom: 40px;
   border-radius: 7px 7px 7px 7px;
   -moz-border-radius: 7px 7px 7px 7px;
-  -webkit-border: 7px 7px 7px 7px;}
+  -webkit-border: 7px 7px 7px 7px;
+}
   
 /* styling for the slideshow on the homepage */
 ul.slideshow {

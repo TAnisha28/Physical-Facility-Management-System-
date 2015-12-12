@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
+
 using System.Web;
+using System.Data;
 using PhysicalManagementSystemApp.Model;
 
 namespace PhysicalManagementSystemApp.DAL
@@ -63,8 +64,8 @@ namespace PhysicalManagementSystemApp.DAL
         {
             List<BookingHistoryByCat> categoryList = new List<BookingHistoryByCat>();
             SqlConnection connection = new SqlConnection(connectionString);
-            string query = string.Format("select BookDate,Category,CatName,ASubject,OrgName,StartDate," +
-                                         "EndDate,TimeSlot " +
+            string query = string.Format("select BookDate,Category,CatName,ASubject,StartDate," +
+                                         "EndDate,TimeSlot  ,logistic,orgname   " +
                                          "from Booking_Det");
             SqlCommand command = new SqlCommand(query, connection);
             SqlDataReader reader;
@@ -81,6 +82,8 @@ namespace PhysicalManagementSystemApp.DAL
                 category.StartDate = reader.GetValue(4).ToString();
                 category.EndDate = reader.GetValue(5).ToString();
                 category.TimeSlot = reader.GetValue(6).ToString();
+                category.Logistic = reader.GetValue(7).ToString();
+                category.OrgName = reader.GetValue(8).ToString();
                 categoryList.Add(category);
 
             }
@@ -95,7 +98,7 @@ namespace PhysicalManagementSystemApp.DAL
             List<BookingHistoryByCat> categoryList = new List<BookingHistoryByCat>();
             SqlConnection connection = new SqlConnection(connectionString);
             string query = string.Format("select BookDate,ASubject,OrgName,StartDate," +
-                                         "EndDate,TimeSlot " +
+                                         "EndDate,TimeSlot ,logistic " +
                                          "from Booking_Det where" +
                                          " Category='{0}' and CatName='{1}'",
                 catg, catName);
@@ -112,6 +115,8 @@ namespace PhysicalManagementSystemApp.DAL
                 category.StartDate = reader.GetValue(3).ToString();
                 category.EndDate = reader.GetValue(4).ToString();
                 category.TimeSlot = reader.GetValue(5).ToString();
+                category.Logistic = reader.GetValue(6).ToString();
+            
                 categoryList.Add(category);
 
             }
@@ -138,7 +143,7 @@ namespace PhysicalManagementSystemApp.DAL
             List<Application> appList = new List<Application>();
             SqlConnection connection = new SqlConnection(connectionString);
 
-            string query = "Select distinct appid,ASubject,OrgName,Reason,UserName,ProcessDate From Application_Det Where BookingStatus='Pending' and Status='Approved'";
+            string query = "Select distinct appid,ASubject,OrgName,UserName,ProcessDate From Application_Det Where BookingStatus='Pending' and Status='Approved'";
             SqlCommand command = new SqlCommand(query, connection);
 
             SqlDataReader reader;
@@ -150,9 +155,9 @@ namespace PhysicalManagementSystemApp.DAL
                 app.AppId = reader.GetValue(0).ToString();
                 app.Asubject = reader.GetValue(1).ToString();
                 app.OrgName = reader.GetValue(2).ToString();
-                app.Remark = reader.GetValue(3).ToString();
-                app.UserName = reader.GetValue(4).ToString();
-                app.prrocessingTime =(DateTime) reader.GetValue(5);
+             //   app.Remark = reader.GetValue(3).ToString();
+                app.UserName = reader.GetValue(3).ToString();
+                app.prrocessingTime =(DateTime) reader.GetValue(4);
 
 
                 appList.Add(app);
@@ -168,7 +173,7 @@ namespace PhysicalManagementSystemApp.DAL
             List<Application> appList = new List<Application>();
             SqlConnection connection = new SqlConnection(connectionString);
 
-            string query = string.Format("Select  FaciID,Category,CatName,TimeSlot,StartDate,EndDate,UserName From Application_Det Where BookingStatus='Pending' and Status='Approved' and AppID='{0}'",appId);
+            string query = string.Format("Select  FaciID,Category,CatName,TimeSlot,StartDate,EndDate,UserName,price,ratetype From Application_Det Where BookingStatus='Pending' and Status='Approved' and AppID='{0}' and BookingStatus<>'Booked'",appId);
             
             SqlCommand command = new SqlCommand(query, connection);
             
@@ -186,10 +191,12 @@ namespace PhysicalManagementSystemApp.DAL
                 app.StartDate = reader.GetValue(4).ToString();
                 app.EndDate = reader.GetValue(5).ToString();
                 app.UserName = reader.GetValue(6).ToString();
-
-
+                if (reader.GetValue(7).ToString() != "")
+                    app.price = float.Parse(reader.GetValue(7).ToString());
+                else
+                    app.price = 0;
+                app.ratetype = reader.GetValue(8).ToString();
                 appList.Add(app);
-
             }
             connection.Close();
             return appList;
@@ -199,11 +206,18 @@ namespace PhysicalManagementSystemApp.DAL
         public int StoreBookingInformation(Booking booking)
         {
             SqlConnection connection=new SqlConnection(connectionString);
-            string query = string.Format("insert into Booking Values('{0}','{1}','{2}','{3}','{4}','{5}','{6}')",
+            string query = string.Format("insert into Booking(Bookid,appid,faciid,timeslot,bookstatus,username,bookdate) Values('{0}','{1}','{2}','{3}','{4}','{5}',@bd)",
                booking.BookID,booking.AppID,booking.FaciID,booking.TimeSlot,booking.BookDate,booking.BookStatus,booking.UserName);
             SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.Add("@bd", SqlDbType.Date);
+            command.Parameters["@bd"].Value = booking.BookDate;
             connection.Open();
             int x = command.ExecuteNonQuery();
+           
+            SqlCommand cmd = new SqlCommand("Update application set BookingStatus='Booked' where appid=@ap  and faciid=@fd", connection);
+            cmd.Parameters.AddWithValue("@ap", booking.AppID);
+            cmd.Parameters.AddWithValue("@fd", booking.BookID);
+            cmd.ExecuteNonQuery();
             connection.Close();
             if (x > 0)
             {
@@ -238,6 +252,46 @@ namespace PhysicalManagementSystemApp.DAL
 
 
         }
+        //start change
+        public List<Booking> PopulateGridview()
+        {
+            List<Booking> bookingList = new List<Booking>();
+            SqlConnection connection = new SqlConnection(connectionString);
+            string book = "Booked";
+            string query = string.Format("select row_number() over(Order by bookid desc) As Row,BookDate,ASubject,OrgName,StartDate," +
+                                         "EndDate,TimeSlot ,BookID,catname,UserName " +
+                                         "from Booking_Det where" +
+                                         " BookStatus='" + book + "' "
+                );
+            SqlCommand command = new SqlCommand(query, connection);
+            SqlDataReader reader;
+            connection.Open();
+            reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                Booking booking = new Booking();
+                booking.SlNo = int.Parse(reader.GetValue(0).ToString());
+                booking.BookDate = DateTime.Parse(reader.GetValue(1).ToString());
+                booking.subject = reader.GetValue(2).ToString();
+                booking.OrgName = reader.GetValue(3).ToString();
+                booking.StartDate = reader.GetValue(4).ToString();
+                booking.EndDate = reader.GetValue(5).ToString();
+                booking.TimeSlot = reader.GetValue(6).ToString();
+                booking.BookID = reader.GetValue(7).ToString();
+                booking.CatName = reader.GetValue(8).ToString();
+                booking.UserName = reader.GetValue(9).ToString();
+
+
+                bookingList.Add(booking);
+
+            }
+            connection.Close();
+            return bookingList;
+
+
+
+        }
+        //end change
 
        
 

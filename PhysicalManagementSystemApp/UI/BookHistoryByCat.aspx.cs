@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -20,6 +20,34 @@ namespace PhysicalManagementSystemApp.UI
             {
                 categoryDropDownList.Items.Add("Select");
                 PopulateDropdownList();
+                
+                // CategoryLabel.Visible = true;
+                detailsGridView.Columns[2].Visible = true;
+                detailsGridView.Columns[3].Visible = true;
+                detailsGridView.DataSource = manager.PopulateGridviewByAll();
+                string ss = "test:";
+                detailsGridView.DataBind();
+                for (int i = 0; i < detailsGridView.Rows.Count; i++)
+                {
+                    GridViewRow row = detailsGridView.Rows[i];
+                    Label label1 = (Label)detailsGridView.Rows[i].FindControl("Label1");
+
+                    label1.Text = label1.Text.Substring(0, 10);
+
+                    Label l1 = (Label)detailsGridView.Rows[i].FindControl("Label2");
+                    string s = l1.Text;
+                    if (s.Length > 10)
+                        s = s.Substring(0, 10);
+                    l1.Text = s;
+                    Label l2 = (Label)detailsGridView.Rows[i].FindControl("Label3");
+                    s = l2.Text;
+                    if (s.Length > 10)
+                        s = s.Substring(0, 10);
+                    l2.Text = s;
+                    
+                }
+                
+                Label2.Text = ss;
             }
 
         }
@@ -81,6 +109,25 @@ namespace PhysicalManagementSystemApp.UI
             detailsGridView.Columns[3].Visible = true;
             detailsGridView.DataSource = manager.PopulateGridviewByAll();
             detailsGridView.DataBind();
+        }
+
+        protected void detailsGridView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void detailsGridView_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            var row = e.Row;
+            if (row.RowType == DataControlRowType.DataRow)
+            {
+                // Just change the index of the cell 
+                var description = row.Cells[0].Text;
+                if (description.Length > 100)
+                {
+                    row.Cells[0].Text = description.Substring(0, 10) ;
+                }
+            }
         }
 
     }

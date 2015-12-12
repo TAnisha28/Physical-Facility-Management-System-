@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
+
 using System.Web;
 using PhysicalManagementSystemApp.Model;
 
@@ -13,13 +13,16 @@ namespace PhysicalManagementSystemApp.DAL
         private string connectionString = ConfigurationManager.ConnectionStrings["PhysicalFacilityConDB"].ConnectionString;
 
 
-        public List<Application> GetAllApplication()
+        public List<Application> GetAllApplication(string appid)
         {
 
             List<Application> appList = new List<Application>();
             SqlConnection connection = new SqlConnection(connectionString);
-
-            string query = "Select appid,ASubject,OrgName,AppDetails,TimeSlot,StartDate,EndDate,CatName,Status,FaciId From Application_Det Where Status='New'";
+             string query="";
+             if (appid.Trim() == "Choose")
+                 query = "Select appid,ASubject,OrgName,AppDetails,TimeSlot,StartDate,EndDate,CatName,Status,FaciId From Application_Det Where Status='New'";
+             else
+                 query = "Select appid,ASubject,OrgName,AppDetails,TimeSlot,StartDate,EndDate,CatName,Status,FaciId From Application_Det Where Status='New' and appid='" + appid + "'";
             SqlCommand command = new SqlCommand(query, connection);
 
             SqlDataReader reader;

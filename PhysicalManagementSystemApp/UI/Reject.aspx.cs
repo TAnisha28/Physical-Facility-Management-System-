@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Services.Description;
@@ -21,10 +21,10 @@ namespace PhysicalManagementSystemApp.UI
         {
             RejectManager manager = new RejectManager();
             List<Model.Application> gridList = manager.ShowReject();
-            bool isFull = gridList.Any();
+            int isFull = gridList.Count;
 
            
-            if (isFull)
+            if (isFull>0)
             {
                 RejectGridView.DataSource = manager.ShowReject();
                 RejectGridView.DataBind();

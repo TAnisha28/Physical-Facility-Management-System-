@@ -13,6 +13,15 @@ namespace PhysicalManagementSystemApp.UI {
     public partial class Reject {
         
         /// <summary>
+        /// nulMsgLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label nulMsgLabel;
+        
+        /// <summary>
         /// RejectGridView control.
         /// </summary>
         /// <remarks>
@@ -38,14 +47,5 @@ namespace PhysicalManagementSystemApp.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label detailsLabel;
-        
-        /// <summary>
-        /// nulMsgLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label nulMsgLabel;
     }
 }

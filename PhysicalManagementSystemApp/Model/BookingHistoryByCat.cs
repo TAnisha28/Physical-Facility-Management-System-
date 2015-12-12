@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+
 using System.Web;
 
 namespace PhysicalManagementSystemApp.Model
@@ -17,6 +17,9 @@ namespace PhysicalManagementSystemApp.Model
         public string EndDate { set; get; }
         public string BookingDate{ set; get; }
         public string TimeSlot { set; get; }
+
+        public string Logistic { set; get; }
+       
 
     }
 }

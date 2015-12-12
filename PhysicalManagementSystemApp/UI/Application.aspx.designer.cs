@@ -22,6 +22,33 @@ namespace PhysicalManagementSystemApp.UI {
         protected global::System.Web.UI.WebControls.Label countLabel;
         
         /// <summary>
+        /// DropDownList1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        
+        /// <summary>
+        /// ApprButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ApprButton;
+        
+        /// <summary>
+        /// LinkButton1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
+        
+        /// <summary>
         /// appGridView control.
         /// </summary>
         /// <remarks>
@@ -49,15 +76,6 @@ namespace PhysicalManagementSystemApp.UI {
         protected global::System.Web.UI.WebControls.Label detailsLabel;
         
         /// <summary>
-        /// remarkLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label remarkLabel;
-        
-        /// <summary>
         /// nullMsgLabel control.
         /// </summary>
         /// <remarks>
@@ -67,6 +85,15 @@ namespace PhysicalManagementSystemApp.UI {
         protected global::System.Web.UI.WebControls.Label nullMsgLabel;
         
         /// <summary>
+        /// remarkLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label remarkLabel;
+        
+        /// <summary>
         /// remarkTextBox control.
         /// </summary>
         /// <remarks>
@@ -74,6 +101,15 @@ namespace PhysicalManagementSystemApp.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox remarkTextBox;
+        
+        /// <summary>
+        /// rejectButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button rejectButton;
         
         /// <summary>
         /// Label7 control.
@@ -101,23 +137,5 @@ namespace PhysicalManagementSystemApp.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label notificLabel;
-        
-        /// <summary>
-        /// ApprButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ApprButton;
-        
-        /// <summary>
-        /// rejectButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button rejectButton;
     }
 }
